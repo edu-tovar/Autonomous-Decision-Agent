@@ -123,7 +123,7 @@ class Palacio:
 
 
 
-def render_ascii(palacio: Palacio, agent_pos: Pos, visitado:list, reveal: bool = True, kurtz: bool = False) -> None:
+def render_ascii(palacio: Palacio, agent_pos: Pos, visitado:list, reveal: bool = True, kurtz: bool = False,posibles_peligros: Set[Pos] | None = None,seguros_peligros: Set[Pos] | None = None) -> None:
     """
     Representa el entorno del palacio en formato ASCII, se puede elegir si mostrar todo el mapa
     o solo las celdas visitadas.
@@ -136,14 +136,21 @@ def render_ascii(palacio: Palacio, agent_pos: Pos, visitado:list, reveal: bool =
     MAGENTA = "\033[35m"
     GRAY = "\033[90m"
 
+    posibles_peligros = posibles_peligros or set()
+    seguros_peligros = seguros_peligros or set()
+
     def cell_symbol(pos: Pos, visitado: list, kurtz: bool) -> str:
         if pos == agent_pos:
             return f"{ORANGE}CW{RESET}"
         if not reveal:
             if pos in visitado:
                 return f"{GRAY} .{RESET}"
-            
+            if pos in seguros_peligros:
+                return f"{RED}??{RESET}"
+            if pos in posibles_peligros:
+                return f"{YELLOW}??{RESET}"
             return f"{GRAY}??{RESET}"
+
         if pos in palacio.precipicios:
             return f"{RED} P{RESET}"
         if palacio.soldado_vivo and pos == palacio.soldado:
@@ -153,7 +160,7 @@ def render_ascii(palacio: Palacio, agent_pos: Pos, visitado:list, reveal: bool =
         if pos == palacio.salida:
             return f"{GREEN} E{RESET}"
         return f"{GRAY} .{RESET}"
-     
+
     ancho_terminal = shutil.get_terminal_size((80, 20)).columns
 
     ancho_mapa = palacio.n * 3 + (palacio.n - 1)

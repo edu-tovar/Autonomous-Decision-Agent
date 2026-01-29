@@ -1,4 +1,3 @@
-# palacio.py
 from __future__ import annotations
 import matplotlib.pyplot as plt
 
@@ -143,7 +142,7 @@ def decide_grenade( palacio: Palacio, belief: BeliefState, agent_pos: Pos, obs: 
 
 def main(seed: Optional[int] = 0, reveal: bool = True, modo: str = "ascii") -> None:
     palacio = Palacio(n=6, seed=seed)
-    belief = BeliefState(n=6, start=(1, 1))
+    belief = BeliefState(n=6, inicio=(1, 1))
     belief.init_uniform()
 
     agent_pos: Pos = (1, 1)

@@ -1,4 +1,3 @@
-# river_mdp.py
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -413,7 +412,7 @@ def main() -> None:
 
     mode = input("Simular episodio? [s/n]: ").strip().lower()
     if mode == "s":
-        simulate_episode(rio, pi, seed=1, render=True, delay=0.25)
+        simulate_episode(rio, pi, seed=1, render=True)
     else:
         print("Fin.")
 
