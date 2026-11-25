@@ -123,7 +123,7 @@ class Palacio:
 
 
 
-def render_ascii(palacio: Palacio, agent_pos: Pos, visitado:list, reveal: bool = True, kurtz: bool = False,posibles_peligros: Set[Pos] | None = None,seguros_peligros: Set[Pos] | None = None) -> None:
+def render_ascii(palacio: Palacio, agent_pos: Pos, visitado:list, reveal: bool = True, kurtz: bool = False,posibles_pits: Set[Pos] | None = None, seguros_pits: Set[Pos] | None = None, posibles_sold: Set[Pos] | None = None, seguros_sold: Set[Pos] | None = None,) -> None:
     """
     Representa el entorno del palacio en formato ASCII, se puede elegir si mostrar todo el mapa
     o solo las celdas visitadas.
@@ -136,19 +136,28 @@ def render_ascii(palacio: Palacio, agent_pos: Pos, visitado:list, reveal: bool =
     MAGENTA = "\033[35m"
     GRAY = "\033[90m"
 
-    posibles_peligros = posibles_peligros or set()
-    seguros_peligros = seguros_peligros or set()
+    posibles_pits = posibles_pits or set()
+    seguros_pits   = seguros_pits or set()
+    posibles_sold  = posibles_sold or set()
+    seguros_sold   = seguros_sold or set()
 
     def cell_symbol(pos: Pos, visitado: list, kurtz: bool) -> str:
         if pos == agent_pos:
             return f"{ORANGE}CW{RESET}"
+
         if not reveal:
             if pos in visitado:
                 return f"{GRAY} .{RESET}"
-            if pos in seguros_peligros:
-                return f"{RED}??{RESET}"
-            if pos in posibles_peligros:
-                return f"{YELLOW}??{RESET}"
+
+            if pos in seguros_pits:
+                return f"{RED}P!{RESET}"
+            if pos in seguros_sold:
+                return f"{RED}S!{RESET}"
+            if pos in posibles_pits:
+                return f"{YELLOW}p?{RESET}"
+            if pos in posibles_sold:
+                return f"{YELLOW}s?{RESET}"
+
             return f"{GRAY}??{RESET}"
 
         if pos in palacio.precipicios:

@@ -1,1 +1,1 @@
-pygame
+matplotlib>=3.7

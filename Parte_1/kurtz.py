@@ -81,13 +81,14 @@ def main() -> None:
             if len(cand) == 1:
                 sure_sold.update(cand)
 
-        posibles_peligros = set().union(cand_pit, cand_sold) - visitados_set
-        seguros_peligros  = set().union(sure_pit, sure_sold) - visitados_set
+        posibles_pits = cand_pit - visitados_set
+        seguros_pits  = sure_pit - visitados_set
+        posibles_sold = cand_sold - visitados_set
+        seguros_sold  = sure_sold - visitados_set
 
 
-        render_ascii(palacio, agent_pos=agente.state.pos, visitado=visitados, reveal=mostrar, kurtz=kurtz, posibles_peligros=posibles_peligros, seguros_peligros=seguros_peligros)
-
-        percepts = agente.perceive(palacio)
+        render_ascii(palacio, agent_pos=agente.state.pos, visitado=visitados, reveal=mostrar, kurtz=kurtz, posibles_pits=posibles_pits, seguros_pits=seguros_pits, posibles_sold=posibles_sold, seguros_sold=seguros_sold)
+        
         print("percept(s) =", percepts)
         
         if modo == "AUTO":

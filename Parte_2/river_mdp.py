@@ -141,7 +141,7 @@ class RiverWorld:
 
     def transitions(self, s: Pos, a: str) -> Dict[Pos, float]:
         """
-        Implementa P(s'|s,a) del enunciado:
+        Implementa P(s'|s,a) del modelo:
         - Si a != DOWN:
             pdir = 1 - river_strength(col_actual)
             pdown = river_strength(col_actual) hacia la casilla inferior
@@ -193,7 +193,7 @@ class RiverWorld:
 
     def reward(self, sprima: Pos) -> float:
         """
-        Funcion de recompensa. Como en el enunciado no afecta ni la accion
+        Funcion de recompensa. Como en el modelo no afecta ni la accion
         ni el estado, solo se tiene en cuenta el estado al que se llega.
         
         Devuelve la recompensa inmediata asociada a la transición:

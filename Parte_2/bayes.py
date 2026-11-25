@@ -64,7 +64,7 @@ class BeliefState:
 
     def _likelihood(self, tau_pos: Pos, agent_pos: Pos, visto: bool) -> float:
         """
-        Verosimilitud determinista del enunciado:
+        Verosimilitud determinista del modelo:
         P(e_tau(agent_pos) | tau_pos)=1 si tau_pos en adj(agent_pos) U {agent_pos}; si no 0.
         Para ausencia => 1 - anterior.
         """
